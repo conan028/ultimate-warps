@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "ultimate_warps",
+  "version": "1.0",
+  "name": "Ultimate Warps",
+  "description": "An extensive warp mod for Fabric 1.21.1",
+  "authors": [
+    "Conan"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "com.conan.mods.warps.fabric.UltimateWarps"
+      }
+    ]
+  },
+  "depends": {
+    "java": ">=21",
+    "minecraft": ">=1.21.1",
+    "fabricloader": ">=0.14.14",
+    "fabric-language-kotlin": ">=1.10.8+kotlin.1.9.0",
+    "fabric": "*"
+  }
+}

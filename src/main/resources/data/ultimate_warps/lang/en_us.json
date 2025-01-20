@@ -1,0 +1,33 @@
+{
+  "ultimate_warps.prefix": "<dark_gray>[<color:#cc3e1b>Ultimate Warps<dark_gray>]",
+
+  "ultimate_warps.player_warps.success.delete": "%prefix% <gray>You've removed your warp called <gold>%warp_name%</gold>.",
+  "ultimate_warps.player_warps.success.add": "%prefix% <gray>Successfully added warp called <gold>%warp_name%</gold>.",
+  "ultimate_warps.player_warps.success.rate": "%prefix% <gray>Successfully gave <gold>%warp_name%</gold> a rating of <gold>%rating%</gold>.",
+  "ultimate_warps.player_warps.success.teleport": "%prefix% <gray>You've teleported to warp : <gold>%warp_name%</gold>.",
+
+  "ultimate_warps.player_warps.errors.no_balance": "%prefix% <gray>You do not have enough balance.",
+  "ultimate_warps.player_warps.errors.reached_max_warps": "%prefix% <gray>You've reached the amount of warps you're allowed to set.",
+  "ultimate_warps.player_warps.errors.name_length": "%prefix% <gray>You cannot set a warp with such a long name, try again with less (<gold>%warp_name_length%</gold>).",
+  "ultimate_warps.player_warps.errors.no_warp_called": "%prefix% <gray>You do not have any warps called <gold>%warp_name%</gold>.",
+  "ultimate_warps.player_warps.errors.rate_own_warp": "%prefix% <gray>You cannot rate your own warp.",
+  "ultimate_warps.player_warps.errors.already_exists": "%prefix% <gray>There already exists a server warp with the name <gold>%warp_name%</gold>.",
+  "ultimate_warps.player_warps.errors.already_rated_warp": "%prefix% <gray>You cannot rate the same warp twice.",
+  "ultimate_warps.player_warps.errors.blacklisted_name": "%prefix% <gray>This name has been blacklisted by the operators.",
+
+  "ultimate_warps.errors.no_warp_found": "%prefix% <gray>Could not find warp with name <gold>%warp_name%</gold>.",
+
+  "ultimate_warps.admin.deleted_warp": "%prefix% <gray>Successfully removed player warp called <gold>%warp_name%</gold>.",
+  "ultimate_warps.admin.server_warps.already_exists": "%prefix% <gray>There already exists a server warp with the name <gold>%warp_name%</gold>.",
+  "ultimate_warps.admin.server_warps.add": "%prefix% <gray>Successfully added server warp called <gold>%warp_name%</gold>.",
+  "ultimate_warps.admin.server_warps.delete": "%prefix% <gray>Successfully removed server warp called <gold>%warp_name%</gold>.",
+
+  "ultimate_warps.commands.admin.header": "<dark_gray>[<color:#cc3e1b>Ultimate Warps<dark_gray>]",
+  "ultimate_warps.commands.admin.break": "<strikethrough>-----------------------",
+  "ultimate_warps.commands.admin.server": " <dark_gray>▪ /wadmin server",
+  "ultimate_warps.commands.admin.server.options.create": "      <dark_gray>▪ <gray>create <dark_gray>»<white> Creates a new global warp.",
+  "ultimate_warps.commands.admin.server.options.delete": "      <dark_gray>▪ <gray>delete <dark_gray>»<white> Deletes a existing global warp.",
+  "ultimate_warps.commands.admin.player": " <dark_gray>▪ /wadmin player",
+  "ultimate_warps.commands.admin.player.options.delete": "      <dark_gray>▪ <gray>delete <dark_gray>»<white> Forcefully deletes another player's warp.",
+  "ultimate_warps.commands.admin.reload": " <dark_gray>▪ /wadmin reload <dark_gray>»<white> Reloads the config."
+}
