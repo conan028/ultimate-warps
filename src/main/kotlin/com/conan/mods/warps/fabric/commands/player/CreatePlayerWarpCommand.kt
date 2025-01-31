@@ -8,6 +8,7 @@ import com.conan.mods.warps.fabric.enums.WarpType
 import com.conan.mods.warps.fabric.models.*
 import com.conan.mods.warps.fabric.permissions.UWPermissions
 import com.conan.mods.warps.fabric.util.PM
+import com.conan.mods.warps.fabric.util.PM.executeTaskOffMain
 import com.conan.mods.warps.fabric.util.PermUtil
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.arguments.StringArgumentType
@@ -21,7 +22,7 @@ object CreatePlayerWarpCommand {
     fun register(parent: LiteralArgumentBuilder<ServerCommandSource>) {
         val command = literal("create")
             .requires { PermUtil.commandRequiresPermission(it, UWPermissions.CREATE_WARP_COMMAND) }
-            .then(argument("name", StringArgumentType.word())
+            .then(argument("name", StringArgumentType.greedyString())
             .executes(::execute))
 
         parent.then(command)
@@ -77,7 +78,7 @@ object CreatePlayerWarpCommand {
         if (warpName.length > maxNameLength) {
             PM.sendText(player, lang("ultimate_warps.player_warps.errors.name_length")
                 .replace("%warp_name%", warpName)
-                .replace("%%warp_name_length%%", "$maxNameLength")
+                .replace("%warp_name_length%", "$maxNameLength")
             )
             return 0
         }
@@ -106,9 +107,13 @@ object CreatePlayerWarpCommand {
             )
         )
 
-        dbHandler!!.addWarp(warp, WarpType.PLAYER)
-        PM.sendText(player, lang("ultimate_warps.player_warps.success.add")
-            .replace("%warp_name%", warpName)
+        executeTaskOffMain {
+            dbHandler!!.addWarp(warp, WarpType.PLAYER)
+        }
+
+        PM.sendText(
+            player, lang("ultimate_warps.player_warps.success.add")
+                .replace("%warp_name%", warpName)
         )
 
         return Command.SINGLE_SUCCESS

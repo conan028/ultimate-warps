@@ -1,14 +1,9 @@
 package com.conan.mods.warps.fabric.datahandler
 
-import com.conan.mods.warps.fabric.commands.admin.OldWarp
 import com.conan.mods.warps.fabric.config.baseconfig.BaseConfig.gson
 import com.conan.mods.warps.fabric.enums.WarpType
-import com.conan.mods.warps.fabric.models.OwnerInfo
 import com.conan.mods.warps.fabric.models.Warp
-import com.conan.mods.warps.fabric.models.WarpCoordinates
-import com.conan.mods.warps.fabric.models.WarpStats
 import com.google.gson.reflect.TypeToken
-import net.minecraft.util.math.BlockPos
 import java.io.File
 
 class JsonDBHandler : DatabaseHandler {
@@ -35,38 +30,6 @@ class JsonDBHandler : DatabaseHandler {
         }
 
         serverWarps = gson.fromJson(serverWarpFile.reader(), object : TypeToken<MutableList<Warp>>(){}.type)
-    }
-
-
-    fun fixOldData() {
-        val oldWarpList = gson.fromJson<MutableList<OldWarp>>(playerWarpFile.reader(), object : TypeToken<MutableList<OldWarp>>() {}.type)
-
-        playerWarps.clear()
-
-        oldWarpList.forEach { oldWarp ->
-            val coordinates = BlockPos.fromLong(oldWarp.coords)
-            playerWarps.add(
-                Warp(
-                    oldWarp.name,
-                    oldWarp.category,
-                    OwnerInfo(
-                        oldWarp.playerName,
-                        oldWarp.playerUUID,
-                    ),
-                    WarpStats(),
-                    WarpCoordinates(
-                        oldWarp.dimension,
-                        coordinates.x.toDouble(),
-                        coordinates.y.toDouble(),
-                        coordinates.z.toDouble(),
-                        0f,
-                        0f,
-                    )
-                )
-            )
-        }
-
-        savePlayerWarps()
     }
 
     override fun getWarps(type: WarpType): MutableList<Warp> {

@@ -5,6 +5,7 @@ import com.conan.mods.warps.fabric.datahandler.DatabaseHandlerSingleton.dbHandle
 import com.conan.mods.warps.fabric.enums.WarpType
 import com.conan.mods.warps.fabric.suggestions.WarpSuggestions
 import com.conan.mods.warps.fabric.util.PM
+import com.conan.mods.warps.fabric.util.PM.executeTaskOffMain
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
@@ -16,7 +17,7 @@ import net.minecraft.server.command.ServerCommandSource
 object DeleteServerWarpCommand {
     fun register(parent: LiteralArgumentBuilder<ServerCommandSource>) {
         val deleteCommand = literal("delete")
-            .then(argument("name", StringArgumentType.word())
+            .then(argument("name", StringArgumentType.greedyString())
                 .suggests(WarpSuggestions(WarpType.SERVER))
                 .executes(::execute))
 
@@ -38,7 +39,11 @@ object DeleteServerWarpCommand {
             return 0
         }
 
-        dbHandler!!.deleteWarp(warp, WarpType.SERVER)
+
+        executeTaskOffMain {
+            dbHandler!!.deleteWarp(warp, WarpType.SERVER)
+        }
+
         PM.sendText(player, lang("ultimate_warps.admin.server_warps.delete")
             .replace("%warp_name%", warpName)
         )

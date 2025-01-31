@@ -20,7 +20,7 @@ object WarpCommand {
     fun register(dispatcher: CommandDispatcher<ServerCommandSource>) {
         val warpCommand = literal("warp")
             .requires { PermUtil.commandRequiresPermission(it, UWPermissions.WARP_COMMAND) }
-            .then(argument("name", StringArgumentType.word())
+            .then(argument("name", StringArgumentType.greedyString())
                 .suggests(WarpSuggestions(WarpType.SERVER))
                 .executes(::executeWarp))
 

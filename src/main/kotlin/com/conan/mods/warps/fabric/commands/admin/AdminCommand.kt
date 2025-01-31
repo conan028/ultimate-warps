@@ -31,9 +31,6 @@ object AdminCommand {
         // Reload Command
         ReloadCommand.register(command)
 
-        // Fix Old Data Command
-        FixOldVersionCommand.register(command)
-
         dispatcher.register(command)
     }
 

@@ -1,5 +1,6 @@
 package com.conan.mods.warps.fabric.util
 
+import com.conan.mods.warps.fabric.UltimateWarps.LOGGER
 import com.conan.mods.warps.fabric.UltimateWarps.server
 import com.conan.mods.warps.fabric.config.baseconfig.LangConfig.lang
 import net.kyori.adventure.text.Component
@@ -42,6 +43,15 @@ object PM {
         itemLore = LoreComponent(allLoreLines)
 
         itemStack.set(DataComponentTypes.LORE, itemLore)
+    }
+
+    fun executeTaskOffMain(task: () -> Unit) {
+        try {
+            task.invoke()
+        } catch (e: Exception) {
+            LOGGER.error("Could not execute task off main thread: ${e.message}")
+            e.printStackTrace()
+        }
     }
 
     fun sendText(player: PlayerEntity, text: String) {

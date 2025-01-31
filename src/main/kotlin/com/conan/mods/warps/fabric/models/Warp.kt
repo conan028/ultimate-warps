@@ -6,6 +6,7 @@ import com.conan.mods.warps.fabric.datahandler.DatabaseHandlerSingleton.dbHandle
 import com.conan.mods.warps.fabric.enums.WarpType
 import com.conan.mods.warps.fabric.util.DataKeys
 import com.conan.mods.warps.fabric.util.PM
+import com.conan.mods.warps.fabric.util.PM.executeTaskOffMain
 import net.minecraft.component.DataComponentTypes
 import net.minecraft.component.type.NbtComponent
 import net.minecraft.item.ItemStack
@@ -41,7 +42,10 @@ data class Warp(
                 }
 
                 val updatedWarp = this.copy(stats = updatedStats)
-                updatedWarp.let { dbHandler!!.updateWarp(it, WarpType.PLAYER) }
+
+                executeTaskOffMain {
+                    updatedWarp.let { dbHandler!!.updateWarp(it, WarpType.PLAYER) }
+                }
             }
         }
 

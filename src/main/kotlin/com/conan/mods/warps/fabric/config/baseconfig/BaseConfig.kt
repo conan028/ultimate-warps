@@ -30,7 +30,7 @@ object BaseConfig {
     }
 
     data class Config (
-        val version: Double = 1.0,
+        val version: Double = 1.1,
         val lang: String = "en_us",
         val playerWarps: PlayerWarpConfig = PlayerWarpConfig(),
         val economy: EconomyConfig = EconomyConfig()

@@ -20,7 +20,7 @@ object PlayerWarpsCommand {
     fun register(dispatcher: CommandDispatcher<ServerCommandSource>) {
         val pWarpCommand = literal("pwarp")
             .requires { PermUtil.commandRequiresPermission(it, UWPermissions.WARP_COMMAND) }
-            .then(argument("name", StringArgumentType.word())
+            .then(argument("name", StringArgumentType.greedyString())
                 .suggests(WarpSuggestions(WarpType.PLAYER))
                 .executes(::executePWarp))
 

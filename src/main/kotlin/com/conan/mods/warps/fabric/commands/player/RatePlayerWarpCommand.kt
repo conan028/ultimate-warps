@@ -6,6 +6,7 @@ import com.conan.mods.warps.fabric.enums.WarpType
 import com.conan.mods.warps.fabric.permissions.UWPermissions
 import com.conan.mods.warps.fabric.suggestions.WarpSuggestions
 import com.conan.mods.warps.fabric.util.PM
+import com.conan.mods.warps.fabric.util.PM.executeTaskOffMain
 import com.conan.mods.warps.fabric.util.PermUtil
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.arguments.IntegerArgumentType
@@ -20,7 +21,7 @@ object RatePlayerWarpCommand {
     fun register(parent: LiteralArgumentBuilder<ServerCommandSource>) {
         val command = literal("rate")
             .requires { PermUtil.commandRequiresPermission(it, UWPermissions.RATE_WARP_COMMAND) }
-            .then(argument("name", StringArgumentType.word())
+            .then(argument("name", StringArgumentType.greedyString())
                 .suggests(WarpSuggestions(WarpType.PLAYER))
                 .then(argument("rate", IntegerArgumentType.integer(1, 5))
                     .executes(::execute)))
@@ -64,7 +65,9 @@ object RatePlayerWarpCommand {
             stats = warp.stats
         )
 
-        dbHandler!!.updateWarp(updatedWarp, WarpType.PLAYER)
+        executeTaskOffMain {
+            dbHandler!!.updateWarp(updatedWarp, WarpType.PLAYER)
+        }
 
         PM.sendText(player, lang("ultimate_warps.player_warps.success.rate")
             .replace("%warp_name%", warpName)

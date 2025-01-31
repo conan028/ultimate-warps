@@ -57,7 +57,7 @@ This will take you through each configuration property, and explain its purpose.
 
 ```json
 {
-  "version": 1.0,
+  "version": 1.1,
   "lang": "en_us",
   "playerWarps": {
     "maxWarps": 3,

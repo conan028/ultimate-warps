@@ -6,6 +6,7 @@ import com.conan.mods.warps.fabric.enums.WarpType
 import com.conan.mods.warps.fabric.models.Warp
 import com.conan.mods.warps.fabric.models.WarpCoordinates
 import com.conan.mods.warps.fabric.util.PM
+import com.conan.mods.warps.fabric.util.PM.executeTaskOffMain
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
@@ -17,7 +18,7 @@ import net.minecraft.server.command.ServerCommandSource
 object CreateServerWarpCommand {
     fun register(parent: LiteralArgumentBuilder<ServerCommandSource>) {
         val createCommand = literal("create")
-            .then(argument("name", StringArgumentType.word())
+            .then(argument("name", StringArgumentType.greedyString())
                 .executes(::execute))
 
         parent.then(createCommand)
@@ -53,7 +54,9 @@ object CreateServerWarpCommand {
             )
         )
 
-        dbHandler!!.addWarp(warp, WarpType.SERVER)
+        executeTaskOffMain {
+            dbHandler!!.addWarp(warp, WarpType.SERVER)
+        }
         PM.sendText(player, lang("ultimate_warps.admin.server_warps.add")
             .replace("%warp_name%", warpName)
         )

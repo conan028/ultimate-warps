@@ -5,6 +5,7 @@ import com.conan.mods.warps.fabric.datahandler.DatabaseHandlerSingleton.dbHandle
 import com.conan.mods.warps.fabric.enums.WarpType
 import com.conan.mods.warps.fabric.models.Warp
 import com.conan.mods.warps.fabric.util.PM
+import com.conan.mods.warps.fabric.util.PM.executeTaskOffMain
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.SimpleInventory
 import net.minecraft.item.ItemStack
@@ -88,7 +89,9 @@ class ChaneCategoryScreenHandlerFactory (
                 category = clickedSlot.registryEntry.key.get().value.toString()
             )
 
-            dbHandler!!.updateWarp(newWarp, type)
+            executeTaskOffMain {
+                dbHandler!!.updateWarp(newWarp, type)
+            }
 
             when (type) {
                 WarpType.PLAYER -> openPlayerWarpScreenHandlerFactory(player)
